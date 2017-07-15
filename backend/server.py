@@ -31,7 +31,7 @@ def ticksmith():
 @app.route('/get_risk', methods=['POST'])
 def get_risk():
     body = request.json
-    return jsonify({"res" : body})
+    return jsonify({"res" : "1. Low (<10%)"})
 
 '''
 Helper functions
