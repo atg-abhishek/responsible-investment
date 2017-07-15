@@ -1,4 +1,4 @@
-
+import company_location as locate
 import urllib.parse, json, urllib.request, urllib
 
 def physical_risk_query(location):
@@ -9,7 +9,7 @@ def physical_risk_query(location):
         url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find?{}".format(urllib.parse.urlencode(params))
         with urllib.request.urlopen(url) as url:
             data = json.loads(url.read().decode())
-            print(data)
+            # print(data)
 
     except:
         print('Error in getting data')
@@ -26,16 +26,27 @@ def physical_risk_query(location):
     try:
         with urllib.request.urlopen(risk_url) as risk_url:
             risk_data = json.loads(risk_url.read().decode())
-            print(risk_data['features'][0])
+            # print(risk_data['features'][0])
 
     except:
         print('Error in getting data')
         return 0.0
 
-    print(risk_data['features'][0]['attributes']['BWS_cat'])
     return risk_data['features'][0]['attributes']['BWS_cat']
 
-if __name__ == "__main__":
-    physical_risk_query('Sherbrooke, Quebec, CAN')
 
+def get_water_risk(company_name):
+    loc_list = locate.company_locations(company_name)
+    risk_list = ["1. Low (<10%)", "2. Low to medium (10-20%)", "3. Medium to high (20-40%)", "4. High (40-80%)", "5. Extremely high (>80%)"]
+    max_risk = 0
+    for location in loc_list:
+        risk = physical_risk_query(location)
+        risk_level = risk_list.index(risk)
+        if risk_level > max_risk:
+            max_risk = risk_level
+
+    return risk_list[max_risk]
+
+if __name__ == "__main__":
+    print(get_water_risk('Agrium Inc'))
 
