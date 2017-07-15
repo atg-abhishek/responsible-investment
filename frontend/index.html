@@ -2,12 +2,39 @@
 
 <html>
 <head>
+	<link rel="stylesheet" href="dropdown.css">
+  <link rel="stylesheet" href="dropdownGeo.css">
     <title>This is title</title>
 </head>
 <body>
-    <div class = "hero-container"> </div>
-    <div class = "content-container">
-        <canvas id="myChart" width="400" height="400"></canvas>
-    </div>
+	<script type="text/javascript" src="dropdown.js"></script>
+  <script type="text/javascript" src="dropdownGeo.js"></script>
+
+ <div id="spacer_div" style="width: 100%; margin-top: 10px;"></div>
+
+ 
+  <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Company</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#">Apple</a>
+    <a href="#">Amazon</a>
+    <a href="#">Google</a>
+  </div>
+</div>
+
+
+<div id="spacer_div" style="width: 100%; margin-top: 10px;"></div>
+
+
+
+  <div class="geoDropdown">
+  <button onclick="myFunctionGeo()" class="geoDropbtn">Geography</button>
+  <div id="myGeoDropdown" class="geoDropdown-content">
+    <a href="#">Asia</a>
+    <a href="#">Africa</a>
+    <a href="#">North America</a>
+  </div>
+</div>
+
 </body>
 </html>
