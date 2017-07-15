@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+   <div class="btn-group">
+      <button class="btn dropdown-toggle" data-toggle="dropdown">Location <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#" data-url="http://cdn2.hubspot.net/hub/169013/file-1349984972-jpg/images/low_risk_biztalk.jpg">Africa</a></li>
+        <li><a href="#" data-url="http://www.eulerhermes.com/SiteCollectionImages/Content%20pages%20pictures/Economic-research/Global-Sector-Reports/Sector-Risk-medium.PNG">Asia</a></li>
+        <li><a href="#" data-url="http://capitalkey.ca/uploads/high-risk-industries.jpg">Europe</a></li>
+      </ul>
+    </div><!-- /btn-group -->
+
+
+<div id="spacer_div" style="width: 100%; margin-top: 30px;"></div>
+
+
+<div class="company-btn-group">
+      <button class="btn company-dropdown-toggle" data-toggle="company-dropdown">Location <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Apple</a></li>
+        <li><a href="#">Amazon</a></li>
+        <li><a href="#">Google</a></li>
+      </ul>
+    </div><!-- /btn-group -->
+
+<img id="my_image"></img>
+
+  </body>
+
+
+
+
+
+
+  <script type="text/javascript">
+
+        $('ul.dropdown-menu li a').click(function (e) {
+            var $div = $(this).parent().parent().parent(); 
+            var $btn = $div.find('button');
+            $btn.html($(this).text() + ' <span class="caret"></span>');
+
+            $('#my_image').attr('src', $(this).data('url'));
+            
+            $div.removeClass('open');
+            e.preventDefault();
+            return false;
+        });
+
+
+
+
+  </script>
+</html>

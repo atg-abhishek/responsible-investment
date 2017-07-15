@@ -6,6 +6,7 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
+    position: relative;
 }
 
 /* Dropdown button on hover & focus */
@@ -37,6 +38,10 @@
     text-decoration: none;
     display: block;
 }
+
+select#gender option[value="male"]   { background-image:url(male.png);   }
+select#gender option[value="female"] { background-image:url(female.png); }
+select#gender option[value="others"] { background-image:url(others.png); }
 
 /* Change color of dropdown links on hover */
 .geoDropdown-content a:hover {background-color: #f1f1f1}
