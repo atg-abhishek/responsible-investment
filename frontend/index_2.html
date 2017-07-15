@@ -28,29 +28,17 @@
     <![endif]-->
   </head>
   <body>
-   <div class="btn-group">
-      <button class="btn dropdown-toggle" data-toggle="dropdown">Location <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#" data-url="http://cdn2.hubspot.net/hub/169013/file-1349984972-jpg/images/low_risk_biztalk.jpg">Africa</a></li>
-        <li><a href="#" data-url="http://www.eulerhermes.com/SiteCollectionImages/Content%20pages%20pictures/Economic-research/Global-Sector-Reports/Sector-Risk-medium.PNG">Asia</a></li>
-        <li><a href="#" data-url="http://capitalkey.ca/uploads/high-risk-industries.jpg">Europe</a></li>
-      </ul>
-    </div><!-- /btn-group -->
 
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Company name</span>
+      <input type="text" id="company_name" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" id="go" type="button">Go!</button>
+      </span>
+    </div>
 
-<div id="spacer_div" style="width: 100%; margin-top: 30px;"></div>
-
-
-<div class="company-btn-group">
-      <button class="btn company-dropdown-toggle" data-toggle="company-dropdown">Location <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Apple</a></li>
-        <li><a href="#">Amazon</a></li>
-        <li><a href="#">Google</a></li>
-      </ul>
-    </div><!-- /btn-group -->
-
-<img id="my_image"></img>
+    <div id="result"></div>
+    <img id="result_image"></img>
 
   </body>
 
@@ -61,20 +49,34 @@
 
   <script type="text/javascript">
 
-        $('ul.dropdown-menu li a').click(function (e) {
-            var $div = $(this).parent().parent().parent(); 
-            var $btn = $div.find('button');
-            $btn.html($(this).text() + ' <span class="caret"></span>');
-
-            $('#my_image').attr('src', $(this).data('url'));
-            
-            $div.removeClass('open');
-            e.preventDefault();
-            return false;
-        });
-
-
-
+    $("#go").click(function() {
+        var company_name = $("#company_name").val();
+        $.ajax({
+          url:"http://ec2-34-209-124-146.us-west-2.compute.amazonaws.com:5000/get_risk",
+          type:"POST",
+          data: JSON.stringify({ "company": company_name }),
+          contentType:"application/json; charset=utf-8",
+          dataType:"json",
+          success: function(data){
+            $("#result").html(data.res);
+            if (data.res.indexOf("<10%") != -1) {
+                $("#result_image").attr("src", "11.png")                
+            }
+            if (data.res.indexOf("-20%") != -1) {
+                $("#result_image").attr("src", "22.png")                
+            }
+            if (data.res.indexOf("-40%") != -1) {
+                $("#result_image").attr("src", "33.png")                
+            }
+            if (data.res.indexOf("-80%") != -1) {
+                $("#result_image").attr("src", "44.png")                
+            }
+            if (data.res.indexOf(">80%") != -1) {
+                $("#result_image").attr("src", "55.png")                
+            }
+          }
+        })
+    })
 
   </script>
 </html>
