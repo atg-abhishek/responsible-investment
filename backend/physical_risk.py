@@ -38,14 +38,15 @@ def physical_risk_query(location):
 def get_water_risk(company_name):
     loc_list = locate.company_locations(company_name)
     risk_list = ["1. Low (<10%)", "2. Low to medium (10-20%)", "3. Medium to high (20-40%)", "4. High (40-80%)", "5. Extremely high (>80%)"]
-    max_risk = 0
+    risks = []
+    avg_risk = 0
     for location in loc_list:
         risk = physical_risk_query(location)
         risk_level = risk_list.index(risk)
-        if risk_level > max_risk:
-            max_risk = risk_level
+        avg_risk += risk_level
 
-    return risk_list[max_risk]
+
+    return risk_list[int(avg_risk/len(loc_list))]
 
 if __name__ == "__main__":
     print(get_water_risk('Agrium Inc'))
