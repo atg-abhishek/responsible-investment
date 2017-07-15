@@ -32,8 +32,11 @@ def physical_risk_query(location):
         print('Error in getting data')
         return 0.0
 
-    return risk_data['features'][0]['attributes']['BWS_cat']
+    try:
+        return risk_data['features'][0]['attributes']['BWS_cat']
 
+    except:
+        return None
 
 def get_water_risk(company_name):
     loc_list = locate.company_locations(company_name)
@@ -42,12 +45,13 @@ def get_water_risk(company_name):
     avg_risk = 0
     for location in loc_list:
         risk = physical_risk_query(location)
-        risk_level = risk_list.index(risk)
-        avg_risk += risk_level
+        if risk is not None:
+            risk_level = risk_list.index(risk)
+            avg_risk += risk_level
 
 
     return risk_list[int(avg_risk/len(loc_list))]
 
 if __name__ == "__main__":
-    print(get_water_risk('Agrium Inc'))
+    print(get_water_risk('mircrosoft'))
 
