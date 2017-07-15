@@ -13,4 +13,4 @@ def hello():
     return 'hello'
 
 if __name__ == "__main__":
-    app.run(debug=True, host=HOST)
+    app.run(debug=True, host=HOST, threaded=True)
