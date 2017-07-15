@@ -3,6 +3,7 @@ from flask_cors import CORS
 import sys, requests
 import simplejson as json
 from pprint import pprint 
+from physical_risk import *
 
 app = Flask(__name__)
 CORS(app)
@@ -31,7 +32,9 @@ def ticksmith():
 @app.route('/get_risk', methods=['POST'])
 def get_risk():
     body = request.json
-    return jsonify({"res" : "1. Low (<10%)"})
+    name = body["company"]
+    res = get_water_risk(name)
+    return jsonify({"res" : res})
 
 '''
 Helper functions
