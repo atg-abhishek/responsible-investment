@@ -1,12 +1,15 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from flask_cors import CORS 
 import sys, requests
 import simplejson as json
 from pprint import pprint 
+from physical_risk import *
 
 app = Flask(__name__)
+CORS(app)
 
 ticksmith_key = ""
-ticksmith_token = ""
+ticksmith_email = ""
 
 with open('keys.json') as infile:
     temp = json.load(infile)
@@ -26,13 +29,19 @@ def hello():
 def ticksmith():
     return "temp"
 
+@app.route('/get_risk', methods=['POST'])
+def get_risk():
+    body = request.json
+    name = body["company"]
+    res = get_water_risk(name)
+    return jsonify({"res" : res})
+
 '''
 Helper functions
 '''
 
 def get_ticksmith_token():
     global ticksmith_key
-    global ticksmith_token
     global ticksmith_email
     base_url = "https://trdata.tickvault.com/sso/token"
     headers = {"Accept" : "application/json"}
@@ -41,7 +50,8 @@ def get_ticksmith_token():
 
     pprint(ticksmith_key)
     r = requests.post(base_url, headers=headers, data=payload, auth=(ticksmith_email, ticksmith_key))
-    return r.text
+    ticksmith_token = r.json()['access_token']
+    return ticksmith_token
 
 '''
 TEST ENDPOINTS
